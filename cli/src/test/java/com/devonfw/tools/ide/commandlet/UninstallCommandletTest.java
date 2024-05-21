@@ -1,18 +1,17 @@
 package com.devonfw.tools.ide.commandlet;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import org.junit.jupiter.api.Test;
-
 import com.devonfw.tools.ide.context.AbstractIdeContextTest;
 import com.devonfw.tools.ide.context.IdeTestContext;
 import com.devonfw.tools.ide.io.FileAccess;
 import com.devonfw.tools.ide.log.IdeLogLevel;
+import org.junit.jupiter.api.Test;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 
 /**
  * Integration test of {@link UninstallCommandlet}.
@@ -21,7 +20,6 @@ public class UninstallCommandletTest extends AbstractIdeContextTest {
 
   /**
    * Test of {@link UninstallCommandlet} run.
-   *
    */
   @Test
   public void testUninstallCommandletRun_WithExistingCommandlet() {
@@ -75,3 +73,4 @@ public class UninstallCommandletTest extends AbstractIdeContextTest {
     }
   }
 }
+

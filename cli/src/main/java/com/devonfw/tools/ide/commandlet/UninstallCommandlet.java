@@ -1,11 +1,11 @@
 package com.devonfw.tools.ide.commandlet;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-
 import com.devonfw.tools.ide.context.IdeContext;
 import com.devonfw.tools.ide.io.FileAccess;
 import com.devonfw.tools.ide.property.ToolProperty;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * An internal {@link Commandlet} to uninstall a tool.
@@ -51,3 +51,4 @@ public class UninstallCommandlet extends Commandlet {
     }
   }
 }
+

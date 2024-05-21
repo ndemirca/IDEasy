@@ -1,10 +1,5 @@
 package com.devonfw.tools.ide.context;
 
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
-
 import com.devonfw.tools.ide.io.FileAccess;
 import com.devonfw.tools.ide.io.IdeProgressBar;
 import com.devonfw.tools.ide.io.IdeProgressBarTestImpl;
@@ -13,6 +8,11 @@ import com.devonfw.tools.ide.log.IdeSubLogger;
 import com.devonfw.tools.ide.os.SystemInfo;
 import com.devonfw.tools.ide.repo.DefaultToolRepository;
 import com.devonfw.tools.ide.repo.ToolRepository;
+
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Implementation of {@link IdeContext} for testing.
@@ -29,17 +29,18 @@ public class AbstractIdeTestContext extends AbstractIdeContext {
 
   private FileAccess mockFileAccess;
 
+  private Path dummyUserHome;
+
   /**
    * The constructor.
    *
    * @param factory the {@link Function} to create {@link IdeSubLogger} per {@link IdeLogLevel}.
    * @param userDir the optional {@link Path} to current working directory.
-   * @param toolRepository @param toolRepository the {@link ToolRepository} of the context. If it is set to {@code null}
-   * {@link DefaultToolRepository} will be used.
+   * @param toolRepository @param toolRepository the {@link ToolRepository} of the context. If it is set to {@code null} {@link DefaultToolRepository} will be
+   * used.
    * @param answers the automatic answers simulating a user in test.
    */
-  public AbstractIdeTestContext(Function<IdeLogLevel, IdeSubLogger> factory, Path userDir,
-      ToolRepository toolRepository, String... answers) {
+  public AbstractIdeTestContext(Function<IdeLogLevel, IdeSubLogger> factory, Path userDir, ToolRepository toolRepository, String... answers) {
 
     super(IdeLogLevel.TRACE, factory, userDir, toolRepository);
     this.answers = answers;
@@ -97,11 +98,33 @@ public class AbstractIdeTestContext extends AbstractIdeContext {
     this.systemInfo = systemInfo;
   }
 
-
   /**
    * @param fileAccess the {@link FileAccess} to use for testing.
    */
-  public void setMockFileAccess(FileAccess fileAccess){
+  public void setMockFileAccess(FileAccess fileAccess) {
+
     this.mockFileAccess = fileAccess;
+  }
+
+  /**
+   * @param dummyUserHome mock path which will be used in {@link #getUserHome()}
+   */
+  public void setUserHome(Path dummyUserHome) {
+
+    this.dummyUserHome = dummyUserHome;
+  }
+
+  /**
+   * @return a dummy UserHome path to avoid global path access in a commandlet test. The defined {@link #dummyUserHome} will be returned if it is not
+   * {@code null}, else see implementation {@link #AbstractIdeContext}.
+   */
+  @Override
+  public Path getUserHome() {
+
+    if (dummyUserHome != null) {
+      return dummyUserHome;
+    }
+
+    return super.getUserHome();
   }
 }
